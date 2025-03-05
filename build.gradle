@@ -27,8 +27,10 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.thymeleaf.extra:thymeleaf-extras-springseurity6'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
     testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1' //자바 jwt 라이브러리
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'//xml문서와 java객체간 매핑 자동화
 }
 
 test {

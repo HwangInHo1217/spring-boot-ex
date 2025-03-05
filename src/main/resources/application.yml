@@ -10,6 +10,7 @@ server:
 spring:
   datasource:
     url : jdbc:h2:mem:testdb
+    username: sa
   h2:
     console:
       enabled: true
@@ -20,3 +21,6 @@ spring:
         format_sql: true
 
     defer-datasource-initialization: true
+jwt:
+  issuser: ajufersh@gmail.com
+  secret_key: study-springboot
