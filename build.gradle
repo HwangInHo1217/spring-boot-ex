@@ -14,24 +14,24 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.21.0'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    runtimeOnly 'com.h2database:h2'
-    compileOnly 'org.projectlombok:lombok'
-    testImplementation 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    // ✅ Spring Boot 테스트 라이브러리 추가
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-    // ✅ MockMvc를 사용하려면 추가 필요
-    testImplementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-    testImplementation 'org.springframework.security:spring-security-test'
-    implementation 'io.jsonwebtoken:jjwt:0.9.1' //자바 jwt 라이브러리
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'//자바 jwt 라이브러리
     implementation 'javax.xml.bind:jaxb-api:2.3.1'//xml문서와 java객체간 매핑 자동화
+
+    runtimeOnly 'com.h2database:h2'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+
 }
 
 test {

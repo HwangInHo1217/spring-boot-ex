@@ -34,13 +34,13 @@ public class TokenProvider {
                 .setExpiration(expiry)
                 .setSubject(user.getEmail())
                 .claim("id",user.getId())
-                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretkey())
+                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
                 .compact();
     }
     public boolean validateToken(String token){
         try{
             Jwts.parser()
-                    .setSigningKey(jwtProperties.getSecretkey())
+                    .setSigningKey(jwtProperties.getSecretKey())
                     .parseClaimsJws(token);
             return true;
         }catch (Exception e){
@@ -61,7 +61,7 @@ public class TokenProvider {
     }
     private Claims getCliams(String token){
         return Jwts.parser()
-                .setSigningKey(jwtProperties.getSecretkey())
+                .setSigningKey(jwtProperties.getSecretKey())
                 .parseClaimsJws(token)
                 .getBody();
     }
