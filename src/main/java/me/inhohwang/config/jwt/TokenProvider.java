@@ -20,46 +20,56 @@ import java.util.Set;
 @Service
 public class TokenProvider {
     private final JwtProperties jwtProperties;
+
     public String generateToken(User user, Duration expiredAt) {
         Date now = new Date();
-        return null;
+        return makeToken(new Date(now.getTime() + expiredAt.toMillis()), user);
     }
-    private String makeToken(Date expiry, User user){
-        Date now = new Date();
 
+    private String makeToken(Date expiry, User user) {
+        Date now = new Date();
+        System.out.println("jwtProperties = " + jwtProperties.getIssuer());
+        System.out.println("jwtProperties = " + jwtProperties.getSecretKey());
+        System.out.println("new Date(new Date().getTime()) = " + new Date(new Date().getTime()));
+        System.out.println("Duration.ofDays(7).toMillis() = " + Duration.ofDays(7).toMillis());
         return Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setIssuer(jwtProperties.getIssuer())
                 .setIssuedAt(now)
                 .setExpiration(expiry)
                 .setSubject(user.getEmail())
-                .claim("id",user.getId())
+                .claim("id", user.getId())
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
                 .compact();
     }
-    public boolean validateToken(String token){
-        try{
+
+    public boolean validToken(String token) {
+        try {
             Jwts.parser()
                     .setSigningKey(jwtProperties.getSecretKey())
                     .parseClaimsJws(token);
+
             return true;
-        }catch (Exception e){
-            System.out.println("e.getMessage() = " + e.getMessage());
+        } catch (Exception e) {
             return false;
         }
     }
-    public Authentication getAuthentication(String token){
-        Claims claims = getCliams(token);
-        Set<SimpleGrantedAuthority> authorities= Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
 
-        return new UsernamePasswordAuthenticationToken(new org.springframework.
-                security.core.userdetails.User(claims.getSubject(),"",authorities),token, authorities);
+
+    public Authentication getAuthentication(String token) {
+        Claims claims = getClaims(token);
+        Set<SimpleGrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+
+        return new UsernamePasswordAuthenticationToken(new org.springframework.security.core.userdetails.User(claims.getSubject
+                (), "", authorities), token, authorities);
     }
-    public Long getUserId(String token){
-        Claims claims = getCliams(token);
+
+    public Long getUserId(String token) {
+        Claims claims = getClaims(token);
         return claims.get("id", Long.class);
     }
-    private Claims getCliams(String token){
+
+    private Claims getClaims(String token) {
         return Jwts.parser()
                 .setSigningKey(jwtProperties.getSecretKey())
                 .parseClaimsJws(token)
