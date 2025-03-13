@@ -1,3 +1,11 @@
+server:
+  port: 8000
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 spring:
   jpa:
     show-sql: true
@@ -11,6 +19,15 @@ spring:
   h2:
     console:
       enabled: true
+  oauth2:
+    client:
+      registration:
+        google:
+          client-id : 472648684799-169pqv0qln6j8fot9pvq51roddpsbt2g.apps.googleusercontent.com
+          client-secret: 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
+          scope:
+            -email
+            -profile
 
 jwt:
   issuer: ajufresh@gmail.com

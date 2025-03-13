@@ -22,6 +22,8 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", updatable = false)
     private Long id;
+    @Column(unique = true, nullable = false)
+    private String nickname;
     @Column(name="email", nullable = false, unique = true)
     private String email;
     @Column(name="password", nullable = false)
@@ -30,9 +32,14 @@ public class User implements UserDetails {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     @Builder
-    public User(String email, String password, String auth) {
+    public User(String email, String password, String nickname) {
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
+    }
+    public User update(String nickname){
+        this.nickname = nickname;
+        return this;
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
