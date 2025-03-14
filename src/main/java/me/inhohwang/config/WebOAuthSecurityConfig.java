@@ -3,6 +3,7 @@ package me.inhohwang.config;
 import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import me.inhohwang.config.jwt.TokenProvider;
+import me.inhohwang.config.oauth.OAuth2SuccessHandler;
 import me.inhohwang.config.oauth.OAuth2USerCustomService;
 import me.inhohwang.repository.RefreshTokenRepository;
 import me.inhohwang.service.UserService;

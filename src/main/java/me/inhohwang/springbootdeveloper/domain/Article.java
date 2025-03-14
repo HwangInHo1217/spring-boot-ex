@@ -19,7 +19,8 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", nullable = false)
     Long id;
-
+    @Column(nullable = false)
+    private  String author;
     @Column(nullable = false, name="title")
     String title;
     @Column(nullable = false)
@@ -31,9 +32,10 @@ public class Article {
     @Column(name="updated_at")
     private LocalDateTime updated_at;
     @Builder
-    public Article(String title, String content) {
+    public Article(String title, String content, String author) {
         this.title = title;
         this.content = content;
+        this.author = author;
     }
     public void update(String title, String content) {
         this.title = title;

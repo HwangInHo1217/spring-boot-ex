@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -18,8 +20,8 @@ import java.util.List;
 public class BlogApiController {
     private final BlogService blogService;
     @PostMapping("/api/articles")
-    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request){
-        Article savedArticle=blogService.save(request);
+    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request, Principal principal){
+        Article savedArticle=blogService.save(request, principal.getName());
         return ResponseEntity.status(HttpStatus.CREATED).body(savedArticle);
     }
     @GetMapping("/api/articles")
@@ -28,6 +30,7 @@ public class BlogApiController {
                 .stream()
                 .map(ArticleResponse::new)
                 .toList();
+        Collections.reverse(articles);
         return ResponseEntity.ok().body(articles);
     }
     @GetMapping("/api/articles/{id}")

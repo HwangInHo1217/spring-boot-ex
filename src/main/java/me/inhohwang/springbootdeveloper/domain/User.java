@@ -22,11 +22,11 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", updatable = false)
     private Long id;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String nickname;
     @Column(name="email", nullable = false, unique = true)
     private String email;
-    @Column(name="password", nullable = false)
+    @Column(name="password")
     private String password;
 
     private LocalDateTime createdAt;
